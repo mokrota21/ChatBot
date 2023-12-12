@@ -1,2 +1,6 @@
 TOKEN = 'MTE4Mzc3NDI1NDY0NzQ4MDM5MA.GObune.mBUpjjKyo8ZviY_xMwhV0m29cCRM48KvKHUwO4'
 INVITATION_URL = 'https://discord.com/api/oauth2/authorize?client_id=1183774254647480390&permissions=2183991392320&scope=bot'
+Eszter = 78
+Maximillian = 11
+Erbol = 60 + 41 = 121
+Sixuan = 115
