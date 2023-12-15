@@ -1,0 +1,39 @@
+Class Unibot:
+    initialise(discord_magic, delay, tree_root, attributes):
+        self.tree_root = tree_root
+        self.conversations = {}
+        self.discord_magic = discord_magic
+        self.delay = delay
+        self.attributes = attributes
+    
+    get_conversation():
+        Get last store userid in self.attributes['userid'] and put in userid
+        if userid not in conversations
+            Put new ConversationTree with root tree_root in self.conversations[userid]
+            return self.conversations[userid]
+        else
+            return self.conversations[userid]
+
+    handle_message():
+        Find last message in self.attributes['message'] and store in message
+        conversation = get_conversation()
+
+        Use get_answer(message, self.attributes) in ConversationTree to find replies
+        return replies
+
+    send_message():
+        messages = handle_message()
+        Find channel of last message and put in channel
+
+        FOR message in messages
+            self.discord_magic.send_message(message)
+            wait delay seconds
+    
+    run_bot():
+        self.discord_magic.start_bot
+
+        when_get_message(message):
+            self.attributes =  everything inside message
+
+            if message_authorid not our id:
+                send_message() 

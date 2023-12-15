@@ -1,0 +1,165 @@
+FUNCTION get_current_date():
+    RETURN current_date
+
+FUNCTION read_csv_file(file_name):
+    OPEN file_name for reading
+    READ file content into data
+    CLOSE file
+    RETURN data
+
+FUNCTION extract_column(data, column_index):
+    RETURN list of values from specified column in data
+
+current_date = get_current_date()
+PRINT current_date
+
+data = read_csv_file("unilife.csv")
+sports_list = extract_column(data, 0)
+associations_list = extract_column(data, 1)
+events_list = extract_column(data, 2)
+
+PRINT sports_list
+PRINT associations_list
+PRINT events_list
+
+endbool: bool = False
+
+FUNCTION end():
+    IF endbool:
+        EXIT
+
+name = GET_USER_INPUT("Hello, what is your name?")
+PRINT "Nice to meet you, " + name + "!"
+
+FUNCTION start():
+    end()
+    PRINT "Type in the number of the topic you would like to discuss"
+    topic_number = CONVERT_TO_INT(GET_USER_INPUT("1 - Study advice\n2 - Sports\n3 - Social activities\n4 - None of these"))
+
+    IF topic_number == 1:
+        study()
+    ELSE IF topic_number == 2:
+        sports()
+    ELSE IF topic_number == 3:
+        social()
+    ELSE IF topic_number == 4:
+        PRINT "In that case, have a nice day!"
+        endbool
+        end()
+
+FUNCTION search_association(list_of_clubs, keyword):
+    end()
+    found: bool = FALSE
+    results = []
+
+    FOR club IN list_of_clubs:
+        IF keyword.lower() IN club.lower():
+            APPEND club TO results
+            found = TRUE
+
+    IF found:
+        PRINT "The following club(s) include the given keyword:"
+        FOR result IN results:
+            PRINT result
+        start()
+
+FUNCTION study():
+    end()
+    PRINT "Are you struggling with any aspect of your studies or just looking for practical information?"
+    response = CONVERT_TO_INT(GET_USER_INPUT("1 - I'm struggling with something\n2 - I'm looking for practical information\n"))
+
+    IF response == 1:
+        share = CONVERT_TO_INT(GET_USER_INPUT("Would you like to share this with other students in a study group, or would you prefer to talk to a student advisor?\n1 - Share in a study group\n2 - Talk to a student advisor\n"))
+
+        IF share == 1:
+            PRINT "Joining a study group can be a great way to overcome challenges. You can find more information about study groups on the university's student portal."
+            find_association()
+        ELSE IF share == 2:
+            PRINT "Talking to a student advisor can provide personalized help. You can book an appointment with a student advisor through the university website."
+            start()
+
+    ELSE IF response == 2:
+        PRINT "For practical information about studying, including resources and tips, you can visit the Student Desk's contact page on the university website."
+        start()
+
+FUNCTION sports():
+    end()
+    havesport: bool = FALSE
+    PRINT "Do you want to search for a specific sports club you are interested in joining or explore what is available at VU Amsterdam?"
+    x = CONVERT_TO_INT(GET_USER_INPUT("1 - I am looking for something specific\n2 - I would like to explore the options"))
+
+    IF x == 2:
+        team = CONVERT_TO_INT(GET_USER_INPUT("Do you like team sports?\n1 - Yes\n2 - No"))
+
+        IF team == 1:
+            water = CONVERT_TO_INT(GET_USER_INPUT("Are you looking for water sports?\n1 - Yes\n2 - No"))
+
+            IF water == 1:
+                PRINT "I recommend you join our water polo team."
+            ELSE:
+                PRINT "In that case, I can recommend football and basketball."
+        ELSE:
+            martial = CONVERT_TO_INT(GET_USER_INPUT("Are you interested in joining a martial arts club?\n1 - Yes\n2 - No"))
+
+            IF martial == 1:
+                PRINT "You can join our aikido or karate sports club."
+            ELSE:
+                water = CONVERT_TO_INT(GET_USER_INPUT("Are you looking for water sports?\n1 - Yes\n2 - No"))
+
+                IF water == 1:
+                    PRINT "I recommend you join our swimming team."
+                ELSE:
+                    PRINT "In that case, I can recommend tennis, yoga, or zumba."
+
+        search_association(sports_list, "")
+    ELSE:
+        keyword = GET_USER_INPUT("What are you looking for?")
+        search_association(sports_list, keyword)
+
+        IF IS_EMPTY(search_association(sports_list, keyword)):
+            PRINT f"Sorry, we don't have any clubs for {keyword}, but let's see if there is anything else you would like."
+            sports()
+
+FUNCTION social():
+    end()
+    x = CONVERT_TO_INT(GET_USER_INPUT("Are you interested in joining an association?\n1 - Yes\n2 - No"))
+
+    IF x == 1:
+        find_association()
+    ELSE IF x == 2:
+        PRINT "In that case, I can tell you about the upcoming events."
+        upcoming_events()
+
+FUNCTION upcoming_events():
+    // Implement logic to find and print upcoming events
+
+FUNCTION find_association():
+    end()
+    x = CONVERT_TO_INT(GET_USER_INPUT("You can reach for associations or help you find a good fit based on your interest after answering a few questions about you.\n1 - Search for associations\n2 - I need help to find out what would be suitable"))
+
+    IF x == 1:
+        keyword = GET_USER_INPUT("What are you looking for?")
+        search_association(associations_list, keyword)
+
+        IF IS_EMPTY(search_association(associations_list, keyword)):
+            PRINT f"Sorry, we don't have any clubs for {keyword}, but let's see if there is anything else you would like."
+            find_association()
+
+    ELSE:
+        interest = GET_USER_INPUT("Which of these aligns with your area of interest the most?\n1 - Humanities\n2 - Arts\n3 - Sciences\n4 - Community service\n5 - Sports")
+
+        SWITCH interest:
+            CASE 1:
+                PRINT "Poetry Pals, Debate Club, and Language Club could be suitable for you."
+            CASE 2:
+                PRINT "Poetry Pals, Painting, and Pottery are suitable associations for you."
+            CASE 3:
+                PRINT "Science Society and Debate Club could be suitable options for you."
+            CASE 4:
+                PRINT "Students for Sustainability and Animal Shelter Volunteers are suitable associations for you."
+            CASE 5:
+                PRINT "Bunch of Backpackers could be a good fit for you. Additionally, you could take a look at our sports club options."
+                sports()
+
+// After defining all the necessary functions, call the start function
+start()

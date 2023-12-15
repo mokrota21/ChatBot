@@ -1,0 +1,31 @@
+class ConversationTree:
+
+        initialise(start: Node) -> None:
+             Create empty self.root node
+             self.root.set_neg(start)
+
+             self.now = self.root
+             self.path = [self.root]
+
+        check_if_now_leaf():
+             is_leaf = adjacent nodes self.now
+             return is_leaf
+        
+        revert():
+             self.now = previous node in self.path
+             delete self.path[-1]
+        
+        restart():
+             self.now = self.root
+             self.path = [self.root]
+
+        def get_answer(reply, attributes):
+             current = self.now[reply]
+
+             messages = current.reply.format(attributes)
+             self.now = current
+
+             if self.check_if_now_leaf():
+                  self.restart()
+            
+             return messages

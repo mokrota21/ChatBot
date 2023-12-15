@@ -1,0 +1,35 @@
+associations_root():
+    for print and input lines in not integrated code:
+        Make node and edges
+    
+    return first created node (root)
+
+study_root():
+    for print and input lines in not integrated code:
+        Make node and edges
+    
+    return first created node (root)
+
+sports_root():
+    for print and input lines in not integrated code:
+        Make node and edges
+    
+    return first created node (root)
+
+social_activity_root():
+    for print and input lines in not integrated code:
+        Make node and edges
+    
+    return first created node (root)
+
+Make attributes from csv file
+
+study = study_node()
+sport = sports_nodes()
+social_activity = social_activity_nodes()
+
+Make greet node
+
+Connect study, sport and social_activity with greet
+
+bot = Unibot(discord_magic, 0.1, greet, attributes)
